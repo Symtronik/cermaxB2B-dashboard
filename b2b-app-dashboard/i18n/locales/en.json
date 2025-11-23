@@ -1,0 +1,26 @@
+{
+  "common": {
+    "help": "Help"
+  },
+  "auth": {
+    "sign_in_title": "Sign in",
+    "sign_in_to_account": "Sign in to your account",
+    "panel_subtitle": "Cermax B2B Dashboard",
+    "email": "Email",
+    "email_placeholder": "Email",
+    "password": "Password",
+    "password_placeholder": "••••••••",
+    "remember_me": "Remember me",
+    "forgot_password": "Forgot password?",
+    "sign_in": "Sign in",
+    "no_account": "Don’t have an account?",
+    "create_account": "Create account",
+    "email_required": "Please enter your email.",
+    "email_invalid": "Invalid email address.",
+    "password_required": "Please enter your password.",
+    "login_failed": "Login failed"
+  },
+  "dashboard": {
+    "logout": "Wyloguj"
+  }
+}
