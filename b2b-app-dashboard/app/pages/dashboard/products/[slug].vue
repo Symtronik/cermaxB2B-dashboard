@@ -4,8 +4,8 @@ import { useRoute, useRouter } from 'vue-router'
 import { allProducts, allSeries } from '~/data/products' // dostosuj ścieżkę
 
 definePageMeta({
-  layout: 'app'
-  // middleware: 'auth'
+  layout: 'app',
+  middleware: 'auth'
 })
 
 const route = useRoute()

@@ -40,16 +40,17 @@ async function onSubmit() {
   pending.value = true
 
   try {
-    const res = await $fetch<LoginResponse>(`http://localhost:8000/api/user/login`, {
+    const res = await $fetch<LoginResponse>(`${API_BASE}/admin/login`, {
       method: 'POST',
       credentials: 'omit',
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json'
+        'Accept': 'application/json'
       },
       body: {
         email: form.email.trim(),
-        password: form.password
+        password: form.password,
+        device_name: config.public.DEVICE_NAME
       }
     })
 
@@ -58,9 +59,9 @@ async function onSubmit() {
 
     // Cookie SSR-safe; przy "remember" ustawiamy dłuższy czas życia
     const tokenCookie = useCookie<string | null>('auth_token', {
-      maxAge: form.remember ? 60 * 60 * 24 * 30 : undefined, // 30 dni
+      maxAge: form.remember ? config.public.cookieMaxAge : undefined,
       sameSite: 'lax',
-      secure: process.client && location.protocol === 'http:',
+      secure: config.public.cookieSecure,
       path: '/'
     })
     tokenCookie.value = token
@@ -162,20 +163,6 @@ async function onSubmit() {
           {{ t('auth.sign_in') }}
         </UButton>
       </form>
-
-      <!-- Stopka karty -->
-      <template #footer>
-        <div class="flex flex-col items-center gap-3">
-          <UDivider />
-          <p class="text-sm text-center text-gray-600">
-            {{ t('auth.no_account') }}
-            <ULink to="/auth/register" class="underline hover:no-underline">
-              {{ t('auth.create_account') }}
-            </ULink>
-          </p>
-        </div>
-      </template>
     </UCard>
   </NuxtLayout>
-  <Footer />
 </template>

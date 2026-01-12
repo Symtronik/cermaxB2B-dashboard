@@ -16,7 +16,9 @@ export default defineNuxtConfig({
     apiSecret: '',
     // publiczne zmienne (widoczne w kodzie klienta)
     public: {
-      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api'
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL ?? 'http://localhost:8000/api/',
+      cookieSecure: process.env.NUXT_PUBLIC_COOKIE_SECURE === 'false',
+      cookieMaxAge: Number(process.env.NUXT_PUBLIC_COOKIE_MAX_AGE) || 0
     }
   },
 

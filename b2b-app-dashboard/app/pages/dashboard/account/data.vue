@@ -8,6 +8,6 @@ definePageMeta({
 
 <template>
 
-    Dodaj produkt
+    data
 
 </template>

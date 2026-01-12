@@ -2,29 +2,37 @@
 import { ref, computed, watch } from 'vue'
 import { allSeries } from '~/data/allSeries'
 
-// 👇 przyjmujemy kategorię jako props (np. z dashboardu)
+// przyjmujemy kategorię, tytuł i tekst wyszukiwania jako props
 const props = defineProps<{
   category?: string | null
   title?: string | null
+  search?: string | null
 }>()
 
 const perPage = 20
 const page = ref(1)
 
-// 1. Filtrowanie serii po kategorii
+// Filtrowanie serii po kategorii i nazwie
 const filteredSeries = computed(() => {
-  // brak kategorii -> wszystkie serie
-  if (!props.category) {
-    return allSeries
+  let list = allSeries
+
+  // filtr po kategorii
+  if (props.category) {
+    list = list.filter(s => s.categorySlug === props.category)
   }
 
-  // filtr po categorySlug
-  return allSeries.filter(
-    s => s.categorySlug === props.category
-  )
+  // filtr po nazwie serii (search)
+  if (props.search) {
+    const term = props.search.toLowerCase().trim()
+    if (term) {
+      list = list.filter(s => s.name.toLowerCase().includes(term))
+    }
+  }
+
+  return list
 })
 
-// 2. Paginacja na podstawie przefiltrowanych serii
+// Paginacja na podstawie przefiltrowanych serii
 const visibleSeries = computed(() =>
   filteredSeries.value.slice(0, page.value * perPage)
 )
@@ -38,9 +46,9 @@ const loadMore = () => {
   page.value++
 }
 
-// 3. Po zmianie kategorii resetujemy stronę na 1
+// Po zmianie kategorii lub wyszukiwanej frazy resetujemy stronę na 1
 watch(
-  () => props.category,
+  () => [props.category, props.search],
   () => {
     page.value = 1
   }
@@ -49,7 +57,6 @@ watch(
 
 <template>
   <div class="p-4 sm:p-8">
-
     <!-- Brak serii po filtrowaniu -->
     <div
       v-if="!filteredSeries.length"

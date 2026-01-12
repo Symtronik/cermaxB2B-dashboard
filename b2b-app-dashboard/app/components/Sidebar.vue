@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
 import { allCategory } from '~/data/category'
+import LogoMini from '~/assets/img/logo_mini.png'
 
 const { t } = useI18n()
 const localePath = useLocalePath()
 
-const categoryItems: NavigationMenuItem[] = allCategory.map(cat => ({
-  label: cat.name,
-  // dashboard.home = lista produktów, filtr po kategorii w query
-  to: localePath({
-    name: 'dashboard-products',
-    query: { category: cat.categorySlug }
-  })
-}))
+const collapsed = ref(true)
 
-const items: NavigationMenuItem[][] = [[{
+function onEnter() {
+  collapsed.value = false
+}
+function onLeave() {
+  collapsed.value = true
+}
+
+const items: NavigationMenuItem[] = [{
   label: t('dashboard.home'),
   icon: 'i-lucide-house',
   to: localePath({ name: 'dashboard' })
@@ -27,67 +28,98 @@ const items: NavigationMenuItem[][] = [[{
   icon: 'i-lucide-package',
   defaultOpen: false,
   children: [
-    {
-      label: t('dashboard.products_list'),
-      icon: 'i-lucide-list',
-      to: localePath({ name: 'dashboard-products' })
-    },
-    {
-      label: t('dashboard.product_add'),
-      icon: 'i-lucide-package-plus',
-      to: localePath({ name: 'dashboard-products-add-product' })
-    },
-    {
-      label: t('dashboard.category_add'),
-      icon: 'i-lucide-plus-circle',
-      to: localePath({ name: 'dashboard-products-add-category' })
-    }
-
+    { label: t('dashboard.products_list'), icon: 'i-lucide-list', to: localePath({ name: 'dashboard-products' }) },
+    { label: t('dashboard.product_add'), icon: 'i-lucide-package-plus', to: localePath({ name: 'dashboard-products-add-product' }) },
+    { label: t('dashboard.category_add'), icon: 'i-lucide-plus-circle', to: localePath({ name: 'dashboard-products-add-category' }) }
   ]
 }, {
   label: t('dashboard.clients'),
   icon: 'i-lucide-users',
-  to: localePath({ name: 'dashboard-history' })
+  to: localePath({ name: 'dashboard-clients' })
 }, {
   label: t('dashboard.marketing'),
   icon: 'i-lucide-megaphone',
-  to: localePath({ name: 'dashboard-history' })
-}, {
+  to: localePath({ name: 'dashboard-marketing' })
+}, // ✅ NOWE: Moje konto
+{
+  label: t('dashboard.account'),
+  icon: 'i-lucide-user',
+  defaultOpen: false,
+  children: [
+    {
+      label: t('dashboard.account_profile'),
+      icon: 'i-lucide-id-card',
+      to: localePath({ name: 'dashboard-account-profile' })
+    },
+    {
+      label: t('dashboard.account_security'),
+      icon: 'i-lucide-shield',
+      to: localePath({ name: 'dashboard-account-security' })
+    },
+    {
+      label: t('dashboard.account_data'),
+      icon: 'i-lucide-building-2',
+      to: localePath({ name: 'dashboard-account-data' })
+    }
+  ]
+},
+
+{
   label: t('dashboard.settings'),
   icon: 'i-lucide-settings',
   defaultOpen: false,
-  children: [{
-    label: t('dashboard.delivery_adress'),
-    to: localePath({ name: 'dashboard-history' })
-  }]
-}]]
+  children: [
+    {
+      label: t('dashboard.delivery_adress'),
+      to: localePath({ name: 'dashboard-settings' })
+    },
+    {
+      label: t('dashboard.admins'),
+      to: localePath({ name: 'dashboard-settings-admins' })
+    }
+  ]
+}
+]
 </script>
 
 <template>
-  <UDashboardSidebar
-    collapsible
-    resizable
-    :ui="{ footer: 'border-t border-default' }"
+  <!-- fixed + szerokość zależna od collapsed -->
+  <div
+    class="hidden lg:block fixed left-0 top-0 h-svh z-1000"
+    :class="collapsed ? 'w-16' : 'w-72'"
+    @mouseenter="onEnter"
+    @mouseleave="onLeave"
   >
-    <template #header="{ collapsed }">
-      <AppLogo />
-    </template>
+    <UDashboardSidebar
+      v-model:collapsed="collapsed"
+      collapsible
+      :ui="{ footer: 'border-t border-default' }"
+      class="h-full w-full"
+    >
+      <template #header>
+        <div class="flex items-center justify-center h-(--ui-header-height)">
+          <!-- ZWINIĘTE: własne logo -->
+          <img
+            v-if="collapsed"
+            :src="LogoMini"
+            alt="Logo Cermax"
+            class="h-8 w-auto"
+          >
 
-    <template #default="{ collapsed }">
-      <UNavigationMenu
-        :collapsed="collapsed"
-        :items="items[0]"
-        orientation="vertical"
-        color="neutral"
-        :ui="{ link: 'text-gray-600' } "
-      />
+          <!-- ROZWINIĘTE: pełne logo -->
+          <AppLogo v-else />
+        </div>
+      </template>
 
-      <UNavigationMenu
-        :collapsed="collapsed"
-        :items="items[1]"
-        orientation="vertical"
-        color="neutral"
-      />
-    </template>
-  </UDashboardSidebar>
+      <template #default>
+        <UNavigationMenu
+          :collapsed="collapsed"
+          :items="items"
+          orientation="vertical"
+          color="neutral"
+          :ui="{ link: 'text-gray-600' }"
+        />
+      </template>
+    </UDashboardSidebar>
+  </div>
 </template>

@@ -18,7 +18,25 @@
     "email_invalid": "Nieprawidłowy adres e-mail.",
     "password_required": "Podaj hasło.",
     "login_failed": "Logowanie nie powiodło się",
-    "panel_subtitle": "Panel B2B Cermax"
+    "panel_subtitle": "Panel B2B Cermax",
+    "forgot_password_subtitle": "Podaj e-mail, wyślemy link do ustawienia nowego hasła",
+    "send_reset_link": "Wyślij",
+    "back_to_login": "Wróć do logowania",
+    "done": "Gotowe",
+    "reset_link_sent": "Jeśli podany adres istnieje w systemie, wysłaliśmy link do resetu hasła.",
+    "reset_password": "Ustaw nowe hasło",
+    "reset_password_subtitle": "Wprowadź nowe hasło do swojego konta",
+    "new_password": "Nowe hasło",
+    "confirm_password": "Potwierdź hasło",
+    "reset_password_action": "Zmień hasło",
+    "password_reset_success": "Hasło zostało zmienione. Możesz się zalogować.",
+    "passwords_not_match": "Hasła nie są takie same",
+    "password_min": "Hasło musi mieć co najmniej 8 znaków",
+    "invalid_reset_link": "Link do resetu hasła jest nieprawidłowy lub wygasł",
+    "reset_error": "Nie udało się zmienić hasła",
+    "sending_reset_link": "Wysyłamy link resetujący…",
+    "reset_error_title": "Nie udało się wysłać linku"
+
   },
   "dashboard": {
     "logout": "Wyloguj",
@@ -35,6 +53,20 @@
     "all_categories": "Wszystkie kategorie",
     "all_products": "Wszystkie produkty",
     "filter_by_category_placeholder": "Filtruj po kategorii...",
-    "clear_filter": "Wyczyść filtr"
+    "filters_reset_all": "Wyczyść filtr",
+    "series_search_placeholder": "Wpisz nazwę serii...",
+    "series_search_empty": "Brak serii pasujących do wyszukiwanej frazy.",
+    "products_filters_subtitle": "Zawężaj listę serii za pomocą filtrów poniżej.",
+    "filter_chip_category": "Kategoria",
+    "filter_chip_search": "Szukaj",
+    "filters_label": "Filtry",
+    "filters_active": "aktywne",
+    "filters_none": "brak aktywnych filtrów",
+    "menu": "Menu",
+    "account": "Moje konto",
+    "account_profile": "Profil",
+    "account_security": "Bezpieczeństwo",
+    "account_data": "Dane",
+    "admins": "Lista adminów"
   }
 }

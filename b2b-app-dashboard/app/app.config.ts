@@ -16,7 +16,7 @@ export default defineAppConfig({
     // Styl samego sidebaru (kontener, header/body/footer)
     dashboardSidebar: {
       slots: {
-        root: 'relative hidden lg:flex flex-col min-h-svh min-w-16 w-(--width) shrink-0 bg-lime-50',
+        root: 'relative hidden lg:flex flex-col min-h-svh min-w-16 w-(--width) shrink-0 bg-white',
         header: 'h-(--ui-header-height) shrink-0 flex items-center gap-1.5 px-4 bg-white',
         body: 'flex flex-col gap-4 flex-1 overflow-y-auto px-4 py-2',
         footer: 'shrink-0 flex items-center gap-1.5 px-4 py-2',
@@ -47,7 +47,7 @@ export default defineAppConfig({
         linkLeadingIcon: 'size-5 shrink-0',
         linkLabel: 'truncate',
         linkTrailingBadge: 'text-xs',
-        childItem: 'bg-lime-50',
+        childItem: 'bg-white',
         childLink: 'group relative size-full flex items-start text-start text-sm before:absolute before:z-[-1] before:rounded-md focus:outline-none focus-visible:outline-none focus-visible:before:ring-inset focus-visible:before:ring-2'
       },
       variants: {

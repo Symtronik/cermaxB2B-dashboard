@@ -1,13 +1,13 @@
 <script setup lang="ts">
 const { t } = useI18n()
 definePageMeta({
-  layout: 'app'
-  // middleware: 'auth' // <-- ochrona strony
+  layout: 'app',
+  middleware: 'auth' // <-- ochrona strony
 })
 </script>
 
 <template>
 
-    Test2
+    ustawienia
 
 </template>
